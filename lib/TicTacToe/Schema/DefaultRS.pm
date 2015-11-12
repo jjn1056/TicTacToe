@@ -1,15 +1,15 @@
 use strict;
 use warnings;
 
-package JJNAPIORK::TicTacToe::Schema::DefaultRS;
+package TicTacToe::Schema::DefaultRS;
 
-use base 'JJNAPIORK::TicTacToe::Schema::ResultSet';
+use base 'TicTacToe::Schema::ResultSet';
 
 1;
 
 =head1 NAME
 
-JJNAPIORK::TicTacToe::Schema::DefaultRS - Default Result Class
+TicTacToe::Schema::DefaultRS - Default Result Class
 
 =head1 SYNOPSIS
 
@@ -25,10 +25,10 @@ This class defines the following methods
 
 =head1 AUTHORS & COPYRIGHT
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =head1 LICENSE
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =cut

@@ -1,4 +1,4 @@
-package JJNAPIORK::TicTacToe::Schema::ResultSet;
+package TicTacToe::Schema::ResultSet;
 
 use strict;
 use warnings;
@@ -34,7 +34,7 @@ sub TO_JSON {
 
 =head1 NAME
 
-JJNAPIORK::TicTacToe::Schema::ResultSet - Base ResultSet Class
+TicTacToe::Schema::ResultSet - Base ResultSet Class
 
 =head1 SYNOPSIS
 
@@ -54,10 +54,10 @@ Default data for generating JSON views
 
 =head1 AUTHORS & COPYRIGHT
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =head1 LICENSE
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =cut

@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 
-package JJNAPIORK::TicTacToe::Schema::ResultSet::Game;
+package TicTacToe::Schema::ResultSet::Game;
 
-use base 'JJNAPIORK::TicTacToe::Schema::ResultSet';
+use base 'TicTacToe::Schema::ResultSet';
 
 sub _new_game {
   my $self = shift;
@@ -14,7 +14,7 @@ sub _new_game {
 
 =head1 TITLE
 
-JJNAPIORK::TicTacToe::Schema::ResultSet::Game - resultset method for Game
+TicTacToe::Schema::ResultSet::Game - resultset method for Game
 
 =head1 DESCRIPTION
 
@@ -30,10 +30,10 @@ This class defines the following methods
 
 =head1 AUTHORS & COPYRIGHT
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =head1 LICENSE
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =cut

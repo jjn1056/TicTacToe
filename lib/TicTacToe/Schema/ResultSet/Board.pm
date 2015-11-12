@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 
-package JJNAPIORK::TicTacToe::Schema::ResultSet::Board;
+package TicTacToe::Schema::ResultSet::Board;
 
-use base 'JJNAPIORK::TicTacToe::Schema::ResultSet';
+use base 'TicTacToe::Schema::ResultSet';
 
 sub last_in_game {
   my $self = shift;
@@ -15,7 +15,7 @@ sub last_in_game {
 
 =head1 TITLE
 
-JJNAPIORK::TicTacToe::Schema::ResultSet::Board - resultset method for Board
+TicTacToe::Schema::ResultSet::Board - resultset method for Board
 
 =head1 DESCRIPTION
 
@@ -31,10 +31,10 @@ This class defines the following methods
 
 =head1 AUTHORS & COPYRIGHT
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =head1 LICENSE
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =cut

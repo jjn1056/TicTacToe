@@ -1,7 +1,7 @@
-package JJNAPIORK::TicTacToe::Form::Game;
+package TicTacToe::Form::Game;
 
 use HTML::FormHandler::Moose;
-use JJNAPIORK::TicTacToe::Schema::Result::Board;
+use TicTacToe::Schema::Result::Board;
 
 extends 'HTML::FormHandler';
 

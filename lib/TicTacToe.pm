@@ -1,24 +1,56 @@
-package JJNAPIORK::TicTacToe;
+package TicTacToe;
 
+use Catalyst::Plugin::MapComponentDependencies::Utils ':ALL';
 use Catalyst qw/
   ConfigLoader
-  RedirectTo/;
+  ResponseFrom
+  RedirectTo
+  CurrentComponents
+  InjectionHelpers
+  MapComponentDependencies
+/;
 
-sub version { our $VERSION ||= eval '0.001' };
-sub accepts_json { pop->req->header('accept') =~m/json/i }
-sub accepts_html { pop->req->header('accept') =~m/html/i }
+__PACKAGE__->inject_components(
+  'Model::Form' => { from_component => 'Catalyst::Model::HTMLFormhandler' },
+  'Model::Schema' => { from_component => 'Catalyst::Model::DBIC::Schema'},
+  'View::JSON' => { from_component => 'Catalyst::View::JSON::PerRequest' },
+  'View::HTML' => { from_component => 'Catalyst::View::Text::MicroTemplate::PerRequest'},
+  'Controller::Public' => { from_component => 'Catalyst::Controller::Public' });
+
+__PACKAGE__->request_class_traits([
+  'ContentNegotiationHelpers',
+  'QueryFromJSONY']);
+
+__PACKAGE__->config(
+  'default_view' => 'HTML',
+  'default_model' => 'Schema',
+  'Controller::Root' => {
+    namespace => '',
+  },
+  'Model::Schema' => {
+    traits => ['Result'],
+    schema_class => 'TicTacToe::Schema',
+  },
+  'Model::Form' => {
+    schema_model_name => 'Schema',
+    roles => ['HTML::Formhandler::Role::ToJSON'],
+  },
+  'Plugin::CurrentComponents' => {
+    model_instance_from_return => 1,
+  },
+);
 
 __PACKAGE__->setup;
 
 =head1 NAME
 
-JJNAPIORK::TicTacToe - A demo Tic Tac Toe microservice
+TicTacToe - A demo Tic Tac Toe microservice
 
 =head1 SYNOPSIS
 
 To start the server
 
-    perl -Ilib lib/JJNAPIORK/TicTacToe/Server.pm
+    make server
 
 =head1 DESCRIPTION
 

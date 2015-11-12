@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-package JJNAPIORK::TicTacToe::Schema;
+package TicTacToe::Schema;
 
 our $VERSION = 1;
 use base 'DBIx::Class::Schema';

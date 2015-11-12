@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 
-package JJNAPIORK::TicTacToe::Schema::Result::Board;
+package TicTacToe::Schema::Result::Board;
 
-use base 'JJNAPIORK::TicTacToe::Schema::Result';
+use base 'TicTacToe::Schema::Result';
 
 our @locations = (qw/tl tc tr ml mc mr bl bc br/);
 our @winning_conditions = (
@@ -101,7 +101,7 @@ sub board_layout {
 
 =head1 TITLE
 
-Vota::Schema::Result::Board - Represents the state of a board of classic TicTacToe
+TicTacToe::Schema::Result::Board - Represents the state of a board of classic TicTacToe
 
 =head1 DESCRIPTION
 
@@ -147,10 +147,10 @@ A hash of the board occupation setup.
 
 =head1 AUTHORS & COPYRIGHT
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =head1 LICENSE
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =cut

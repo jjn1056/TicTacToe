@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-package JJNAPIORK::TicTacToe::Schema::Result;
+package TicTacToe::Schema::Result;
 
 use base 'DBIx::Class::Core';
 
@@ -11,7 +11,7 @@ __PACKAGE__->load_components(qw/
   TimeStamp
   InflateColumn::DateTime/);
 
-sub default_result_namespace { 'JJNAPIORK::TicTacToe::Schema::Result' }
+sub default_result_namespace { 'TicTacToe::Schema::Result' }
 
 sub add_columns {
   my @ret = (my $class = shift)
@@ -34,7 +34,7 @@ sub TO_JSON { +{shift->get_columns} }
 
 =head1 NAME
 
-JJNAPIORK::TicTacToe::Schema::Result - Base Result Class
+TicTacToe::Schema::Result - Base Result Class
 
 =head1 SYNOPSIS
 
@@ -48,21 +48,16 @@ All Result classes inherit behavior from this
 
 This class defines the following methods
 
-=head2 uuid_columns
-
-Override this method so that we say all primary key fields should
-be UUIDs, via the UUIDColumns component.
-
 =head2 TO_JSON
 
 Default data for generating JSON views
 
 =head1 AUTHORS & COPYRIGHT
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =head1 LICENSE
 
-See L<JJNAPIORK::TicTacToe>.
+See L<TicTacToe>.
 
 =cut

@@ -1,4 +1,4 @@
-package JJNAPIORK::TicTacToe::Controller::Game;
+package TicTacToe::Controller::Game;
 
 use Moose;
 use MooseX::MethodAttributes;
