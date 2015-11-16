@@ -1,8 +1,8 @@
 use Test::Most;
 use Test::DBIx::Class
-  -schema_class => 'JJNAPIORK::TicTacToe::Schema';
+  -schema_class => 'TicTacToe::Schema';
 
-ok my $game = Schema->new_game;
+ok my $game = Schema->resultset('Game')->new_game;
 
 is $game->whos_turn, 'X';
 is $game->status, 'in_play';

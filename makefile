@@ -63,6 +63,6 @@ installdevelop::
 setup:: buildperl locallib buildexec installdevelop
 
 server::
-	local/exec perl -Ilib lib/Nataero/Web/Server.pm --server Gazelle
+	local/exec perl -Ilib lib/TicTacToe/Server.pm
 
 

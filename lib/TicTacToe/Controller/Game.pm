@@ -5,58 +5,30 @@ use MooseX::MethodAttributes;
 
 extends 'Catalyst::Controller';
 
-sub game :Chained(../root) PathPart('') CaptureArgs(1) {
+has 'games_index_action' => (is=>'ro', required=>1);
+
+sub root :Chained(../root) PathPart('') CaptureArgs(1) {
   my ($self, $c, $id) = @_;
-  
-  my $game = $id eq 'new' ?
-  $c->model("Schema")->schema->new_game :
-    $c->model("Schema::Game")->find($id) ||
-      return $c->detach('/not_found');
-
-  my $form = $c->model("Form::Game",
-    action => $c->uri_for($self->action_for('process_move'), [$game->id]),
-      options_move =>[ map { $_ => $_ } $game->available_moves]);
-
-  $c->stash(
-    game => $game,
-    form => $form,
-    index => $c->uri_for($c->controller('Root')->action_for('index')),
-    current_layout => +{$game->current_layout},
-    body_data => {
-      status => $game->status,
-      whos_turn => $game->whos_turn,
-      available_next_moves => [$game->available_moves],
-      current_layout => +{$game->current_layout}});
+  return $c->model("Schema::Game::Result") ||
+    $c->go('/not_found');
 }
 
-  sub process_move :POST Chained(game) PathPart('') Args(0) {
-    my ($self, $c) = @_;
-    my $game = $c->stash->{game};
-    my $form = $c->model("Form::Game");
+  sub game :Chained('root') PathPart('') FormModelTarget('Form::Game') Args(0) {
+    my ($self, $c, $id) = @_;
+    my $game = $c->model;
+    my $form = $c->model('Form::Game', $game);
 
-    if($form->process(params=>$c->req->body_data)) {
-      $game->select_move($form->values->{move});
-      if($c->accepts_html) {
-        return $c->redirect_to($self->action_for('show_board'), [$game->id]);
-      } elsif($c->accepts_json) {
-        $c->res->location($c->uri_for($self->action_for('show_board'), [$game->id]));
-        $c->stash(body_data => {
-            status => $game->status,
-            whos_turn => $game->whos_turn,
-            available_next_moves => [$game->available_moves],
-            current_layout => +{$game->current_layout}});
-      }
-    } else {
-      $c->res->status(400);
-      if($c->accepts_html) {
-        $c->stash(template => $c->view->template_for(
-          $self->action_for('show_board')));
-      } elsif($c->accepts_json) {
-        $c->stash(body_data => $form);
-      }
+    $c->view->data->set(
+      game => $game,
+      form => $form,
+      index => $c->uri_for_action($self->games_index_action));
+
+    if($form->posted && !$form->is_valid) {
+      ## TODO, needs a template for HTML view
+      $c->view->detach_unprocessable_entity();
     }
-  }
 
-  sub show_board :GET Chained(game) PathPart('') Args(0) { }
+    $c->view->ok;
+  }
 
 __PACKAGE__->meta->make_immutable;

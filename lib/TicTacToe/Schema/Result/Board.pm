@@ -95,6 +95,7 @@ sub available_moves {
 sub board_layout {
   my $self = shift;
   my %layout = map { $_ => $self->$_ } @locations;
+  return %layout;
 }
 
 1;

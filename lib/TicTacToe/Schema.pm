@@ -14,10 +14,6 @@ __PACKAGE__->load_components(qw/
 __PACKAGE__->load_namespaces(
   default_resultset_class => "DefaultRS");
 
-sub new_game {
-  return shift->resultset('Game')->_new_game;
-}
-
 1;
 
 =head1 TITLE

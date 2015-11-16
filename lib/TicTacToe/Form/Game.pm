@@ -11,13 +11,31 @@ has_field 'move' => (
 
 has_field 'submit' => (type => 'Submit');
 
-has 'options_move' => (
-  is=>'ro',
-  isa=>'ArrayRef',
-  traits => ['Array'],
-  default => sub { [map { $_ => $_ } @JJNAPIORK::TicTacToe::Schema::Result::Board::locations] },
-  required=>1);
+sub options_move {
+  my $self = shift;
+  my @available_moves = $self->item ?
+    $self->item->available_moves :
+      @TicTacToe::Schema::Result::Board::locations;
 
+  return map { $_ => $_ } @available_moves;
+}
+
+sub update_model {
+  my $self = shift;
+  warn "calling update model " x10;
+
+  unless($self->item) {
+    $self->item($self->ctx->model('Schema::Game')->new_game);
+  }
+
+  $self->item->select_move(
+    $self->values->{move});
+
+  # Need to rebuild the options since they are stored after
+  # populated the first time but we just changed the model.
+  $self->field('move')->_load_options;
+
+}
 
 sub prepare_error_response {  
   return +{

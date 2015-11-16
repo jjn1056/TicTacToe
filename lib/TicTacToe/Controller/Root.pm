@@ -2,35 +2,60 @@ package TicTacToe::Controller::Root;
 
 use Moose;
 use MooseX::MethodAttributes;
-use HTTP::Exception;
 
 extends 'Catalyst::Controller';
 
+has 'show_board_action' => (is=>'ro', required=>1);
 
 sub root :Chained(/) PathPart('') CaptureArgs(0) {
   my ($self, $c) = @_;
-  $c->stash(current_view=>'JSON') if $c->accepts_json && !$c->accepts_html;
+  my $view = $c->req->on_best_media_type(
+    'text/html' => sub { 'HTML' },
+    'application/json' => sub { 'JSON' },
+    'no_match' => sub {
+      my ($req, %callbacks) = @_;
+      $c->view->template('406');
+      $c->view->detach_not_acceptable({allowed=>[keys %callbacks]});
+    },
+  );
+  $c->current_view($view);
 }
 
-  sub index :GET Chained(root) PathPart('') Args(0) {
+  sub new_game :POST Chained(root) PathPart('') FormModelTarget('Form::Game') Args(0) {
     my ($self, $c) = @_;
-
-    my $new_game = $c->uri_for( $c->controller('Game')->action_for('process_move'),['new']);
-    my $form = $c->model("Form::Game", action => $new_game);
-    my @links_to_games = map {
-       $c->uri_for($c->controller('Game')->action_for('process_move'), [$_->id])
-    } $c->model("Schema::Game")->all;
-
-    $c->stash(
-      form => $form, games => \@links_to_games, 
-      body_data => { games => \@links_to_games, new_game => "$new_game"} );
+    my $form = $c->model('Form::Game');
+    if($form->is_valid) {
+      my $game = $form->item;
+      my $game_url = $c->uri_for_action($self->show_board_action, [$game->id]);
+      $c->view->created(location => $game_url, {
+        game => $game,
+        form => $form,
+        new_game_url => $game_url,
+      });
+    } else {
+      ## TODO, needs a template for HTML view
+      $c->view->unprocessable_entity($form);
+    }
   }
 
-sub default :Default { $_[1]->go('/not_found') }
+  sub view_games :GET Chained(root) PathPart('') Args(0) {
+    my ($self, $c) = @_;
+    my $form = $c->model("Form::Game");
 
-sub end :ActionClass(RenderView) { }
+    ## TODO, needs paging for when lots of game
+    ## TODO, add count of total games
+    my @links_to_games = map {
+       $c->uri_for_action($self->show_board_action, [$_->id])
+    } $c->model("Schema::Game")->all;
 
-sub not_found :Action { HTTP::Exception->throw(404) }
+    $c->view->ok({
+      form => $form, 
+      games => \@links_to_games});
+  }
 
-__PACKAGE__->config(namespace=>'');
+  sub not_found :Chained(root) PathPart('') Args {
+    my ($self, $c) = @_;
+    $c->view->not_found({error=>'Path Not Found'});
+  }
+
 __PACKAGE__->meta->make_immutable;

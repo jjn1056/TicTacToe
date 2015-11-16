@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 
-package JJNAPIORK::TicTacToe::Schema::Result::Game;
+package TicTacToe::Schema::Result::Game;
 
-use base 'JJNAPIORK::TicTacToe::Schema::Result';
+use base 'TicTacToe::Schema::Result';
 
 __PACKAGE__->table('game');
 __PACKAGE__->add_columns(
@@ -17,6 +17,18 @@ __PACKAGE__->set_primary_key('game_id');
 __PACKAGE__->has_many(
   board_rs => '::Board',
   { 'foreign.fk_game_id' => 'self.game_id' });
+
+# Overrides
+
+# A Game requires an initial board to be valid.
+sub insert {
+  my ( $self, @args ) = @_;
+  $self->next::method(@args);
+  $self->create_related('board_rs', +{});
+  return $self;
+}
+
+# Private methods
 
 sub _dump_info {
   return shift->self_rs

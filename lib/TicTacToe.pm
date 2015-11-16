@@ -26,14 +26,25 @@ __PACKAGE__->config(
   'default_model' => 'Schema',
   'Controller::Root' => {
     namespace => '',
+    show_board_action => '/game/game',
+  },
+  'Controller::Game' => {
+    games_index_action => '/view_games',
   },
   'Model::Schema' => {
     traits => ['Result'],
     schema_class => 'TicTacToe::Schema',
   },
   'Model::Form' => {
-    schema_model_name => 'Schema',
-    roles => ['HTML::Formhandler::Role::ToJSON'],
+    #schema_model_name => 'Schema',
+    #roles => ['HTML::Formhandler::Role::ToJSON'],
+  },
+  'View::JSON' => {
+    handle_encode_error => \&Catalyst::View::JSON::PerRequest::HANDLE_ENCODE_ERROR,
+  },
+  'View::HTML' => {
+    content_type => 'text/html',
+    handle_process_error => \&Catalyst::View::Text::MicroTemplate::PerRequest::HANDLE_PROCESS_ERROR,
   },
   'Plugin::CurrentComponents' => {
     model_instance_from_return => 1,

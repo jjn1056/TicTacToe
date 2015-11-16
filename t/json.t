@@ -1,11 +1,12 @@
 use Test::Most;
-use Catalyst::Test 'JJNAPIORK::TicTacToe';
+use TicTacToe;
+use Catalyst::Test 'TicTacToe';
 use HTTP::Request::Common;
 use JSON::MaybeXS;
 
 # Lets test using the JSON API
 
-my $location = '/new';
+my $location = '/';
 
 {
   ok my $res = request POST $location,

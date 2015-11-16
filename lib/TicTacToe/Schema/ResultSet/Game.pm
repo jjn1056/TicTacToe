@@ -5,9 +5,9 @@ package TicTacToe::Schema::ResultSet::Game;
 
 use base 'TicTacToe::Schema::ResultSet';
 
-sub _new_game {
+sub new_game {
   my $self = shift;
-  return $self->create({board_rs => [ +{} ]});
+  return $self->create({});
 }
 
 1;
