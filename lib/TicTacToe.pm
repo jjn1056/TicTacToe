@@ -27,10 +27,10 @@ __PACKAGE__->config(
   'default_model' => 'Schema',
   'Controller::Root' => {
     namespace => '',
-    show_board_action => '/game/game',
+    show_board => 'Game.game',
   },
   'Controller::Game' => {
-    games_index_action => '/view_games',
+    games_index => 'Root.view_games',
   },
   'Model::Schema' => {
     traits => ['Result'],

@@ -5,7 +5,7 @@ use MooseX::MethodAttributes;
 
 extends 'Catalyst::Controller';
 
-has 'games_index_action' => (is=>'ro', required=>1);
+has 'games_index' => (is=>'ro', required=>1);
 
 sub root :Chained(../root) PathPart('') CaptureArgs(1) {
   my ($self, $c, $id) = @_;
@@ -21,7 +21,7 @@ sub root :Chained(../root) PathPart('') CaptureArgs(1) {
     $c->view->data->set(
       game => $game,
       form => $form,
-      index => $c->uri_for_action($self->games_index_action));
+      index => $c->uri($self->games_index));
 
     if($form->posted && !$form->is_valid) {
       ## TODO, needs a template for HTML view

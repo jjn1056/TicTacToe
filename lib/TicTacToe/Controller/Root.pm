@@ -5,7 +5,7 @@ use MooseX::MethodAttributes;
 
 extends 'Catalyst::Controller';
 
-has 'show_board_action' => (is=>'ro', required=>1);
+has 'show_board' => (is=>'ro', required=>1);
 
 sub root :Chained(/) PathPart('') CaptureArgs(0) {
   my ($self, $c) = @_;
@@ -26,7 +26,7 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {
     my $form = $c->model('Form::Game');
     if($form->is_valid) {
       my $game = $form->item;
-      my $game_url = $c->uri_for_action($self->show_board_action, [$game->id]);
+      my $game_url = $c->uri($self->show_board, [$game->id]);
       $c->view->created(location => $game_url, {
         game => $game,
         form => $form,
@@ -45,7 +45,7 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {
     ## TODO, needs paging for when lots of game
     ## TODO, add count of total games
     my @links_to_games = map {
-       $c->uri_for_action($self->show_board_action, [$_->id])
+       $c->uri($self->show_board, [$_->id])
     } $c->model("Schema::Game")->all;
 
     $c->view->ok({
