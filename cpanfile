@@ -9,6 +9,7 @@ requires 'Catalyst::Plugin::InjectionHelpers', '0.007';
 requires 'Catalyst::Plugin::MapComponentDependencies', '0.009';
 requires 'Catalyst::Plugin::RedirectTo', '0.001';
 requires 'Catalyst::Plugin::ResponseFrom', '0.002';
+requires 'Catalyst::Plugin::URI', '0.002';
 requires 'Catalyst::TraitFor::Model::DBIC::Schema::Result', '0.003';
 requires 'Catalyst::TraitFor::Request::ContentNegotiationHelpers', '0.005';
 requires 'Catalyst::TraitFor::Request::QueryFromJSONY', '0.002';

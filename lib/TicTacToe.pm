@@ -8,6 +8,7 @@ use Catalyst qw/
   CurrentComponents
   InjectionHelpers
   MapComponentDependencies
+  URI
 /;
 
 __PACKAGE__->inject_components(
