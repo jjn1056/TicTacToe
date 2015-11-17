@@ -28,6 +28,10 @@ my $location = '/';
     bl => undef, bc => undef, br => undef };
 }
 
+done_testing;
+
+__END__
+
 {
   ok my $res = request POST $location,
      Content_Type => 'application/json',

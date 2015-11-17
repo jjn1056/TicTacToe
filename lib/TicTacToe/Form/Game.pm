@@ -22,8 +22,8 @@ sub options_move {
 
 sub update_model {
   my $self = shift;
-  warn "calling update model " x10;
 
+  # Create if needed
   unless($self->item) {
     $self->item($self->ctx->model('Schema::Game')->new_game);
   }

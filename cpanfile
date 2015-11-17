@@ -12,7 +12,7 @@ requires 'Catalyst::Plugin::ResponseFrom', '0.002';
 requires 'Catalyst::TraitFor::Model::DBIC::Schema::Result', '0.003';
 requires 'Catalyst::TraitFor::Request::ContentNegotiationHelpers', '0.005';
 requires 'Catalyst::TraitFor::Request::QueryFromJSONY', '0.002';
-requires 'Catalyst::View::JSON::PerRequest', '0.005';
+requires 'Catalyst::View::JSON::PerRequest', '0.006';
 requires 'Catalyst::View::Text::MicroTemplate::PerRequest', '0.002';
 requires 'Catalyst::Controller::Public', '0.003';
 requires 'DBIx::Class', '0.082820';
