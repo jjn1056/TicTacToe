@@ -13,7 +13,7 @@ has_field 'submit' => (type => 'Submit');
 
 sub options_move {
   my $self = shift;
-  my @available_moves = $self->item ?
+  my @available_moves = ($self->item && $self->item->in_storage) ?
     $self->item->available_moves :
       @TicTacToe::Schema::Result::Board::locations;
 
@@ -24,8 +24,8 @@ sub update_model {
   my $self = shift;
 
   # Create if needed
-  unless($self->item) {
-    $self->item($self->ctx->model('Schema::Game')->new_game);
+  unless($self->item->in_storage) {
+    $self->item->insert;
   }
 
   $self->item->select_move(
