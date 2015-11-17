@@ -86,6 +86,16 @@ sub available_moves {
     $self->_current_board->available_moves : ();
 }
 
+sub TO_JSON {
+  my $self = shift;
+  return +{
+    whos_turn => $self->whos_turn,
+    status => $self->status,
+    available_next_moves => [$self->available_moves],
+    current_layout => +{$self->current_layout},
+  };
+}
+
 1;
 
 =head1 TITLE

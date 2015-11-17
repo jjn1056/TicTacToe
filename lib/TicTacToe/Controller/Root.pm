@@ -27,7 +27,6 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {
     if($form->is_valid) {
       my $game = $form->item;
       my $game_url = $c->uri_for_action($self->show_board_action, [$game->id]);
-      warn "33" x 100;
       $c->view->created(location => $game_url, {
         game => $game,
         form => $form,

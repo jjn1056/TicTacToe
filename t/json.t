@@ -14,23 +14,19 @@ my $location = '/';
      Accept => 'application/json',
      Content => encode_json +{'move'=>'mc'}; 
 
-  ok $location = $res->header('location'), 'got location';
+  ok $location = $res->header('location'), "got location: $location";
   ok my $game = decode_json($res->content);
 
-  is $game->{whos_turn}, 'O';
-  is $game->{status}, 'in_play';
-  is_deeply $game->{available_next_moves}, [qw/tl tc tr ml mr bl bc br/];
+  is $game->{game}{whos_turn}, 'O';
+  is $game->{game}{status}, 'in_play';
+  is_deeply $game->{game}{available_next_moves}, [qw/tl tc tr ml mr bl bc br/];
 
-  my $board = $game->{current_layout};
+  my $board = $game->{game}{current_layout};
   is_deeply $board, +{
     tl => undef, tc => undef, tr => undef,
     ml => undef, mc => 'X', mr => undef,
     bl => undef, bc => undef, br => undef };
 }
-
-done_testing;
-
-__END__
 
 {
   ok my $res = request POST $location,
@@ -38,14 +34,13 @@ __END__
      Accept => 'application/json',
      Content => encode_json +{'move'=>'bc'}; 
 
-  ok $location = $res->header('location');
   ok my $game = decode_json($res->content);
 
-  is $game->{whos_turn}, 'X';
-  is $game->{status}, 'in_play';
-  is_deeply $game->{available_next_moves}, [qw/tl tc tr ml mr bl br/];
+  is $game->{game}{whos_turn}, 'X';
+  is $game->{game}{status}, 'in_play';
+  is_deeply $game->{game}{available_next_moves}, [qw/tl tc tr ml mr bl br/];
 
-  my $board = $game->{current_layout};
+  my $board = $game->{game}{current_layout};
   is_deeply $board, +{
     tl => undef, tc => undef, tr => undef,
     ml => undef, mc => 'X', mr => undef,
@@ -58,14 +53,13 @@ __END__
      Accept => 'application/json',
      Content => encode_json +{'move'=>'ml'}; 
 
-  ok $location = $res->header('location');
   ok my $game = decode_json($res->content);
 
-  is $game->{whos_turn}, 'O';
-  is $game->{status}, 'in_play';
-  is_deeply $game->{available_next_moves}, [qw/tl tc tr mr bl br/];
+  is $game->{game}{whos_turn}, 'O';
+  is $game->{game}{status}, 'in_play';
+  is_deeply $game->{game}{available_next_moves}, [qw/tl tc tr mr bl br/];
 
-  my $board = $game->{current_layout};
+  my $board = $game->{game}{current_layout};
   is_deeply $board, +{
     tl => undef, tc => undef, tr => undef,
     ml => 'X', mc => 'X', mr => undef,
@@ -78,14 +72,13 @@ __END__
      Accept => 'application/json',
      Content => encode_json +{'move'=>'bl'}; 
 
-  ok $location = $res->header('location');
   ok my $game = decode_json($res->content);
 
-  is $game->{whos_turn}, 'X';
-  is $game->{status}, 'in_play';
-  is_deeply $game->{available_next_moves}, [qw/tl tc tr mr br/];
+  is $game->{game}{whos_turn}, 'X';
+  is $game->{game}{status}, 'in_play';
+  is_deeply $game->{game}{available_next_moves}, [qw/tl tc tr mr br/];
 
-  my $board = $game->{current_layout};
+  my $board = $game->{game}{current_layout};
   is_deeply $board, +{
     tl => undef, tc => undef, tr => undef,
     ml => 'X', mc => 'X', mr => undef,
@@ -98,14 +91,13 @@ __END__
      Accept => 'application/json',
      Content => encode_json +{'move'=>'mr'}; 
 
-  ok $location = $res->header('location');
   ok my $game = decode_json($res->content);
 
-  is $game->{whos_turn}, undef;
-  is $game->{status}, 'X_wins';
-  is_deeply $game->{available_next_moves}, [];
+  is $game->{game}{whos_turn}, undef;
+  is $game->{game}{status}, 'X_wins';
+  is_deeply $game->{game}{available_next_moves}, [];
 
-  my $board = $game->{current_layout};
+  my $board = $game->{game}{current_layout};
   is_deeply $board, +{
     tl => undef, tc => undef, tr => undef,
     ml => 'X', mc => 'X', mr => 'X',
