@@ -1,0 +1,27 @@
+# Setup
+The easiest way to run this application is from Vagrant.  Vagrant can be used from either the Virtualbox provider (which you must install) or via the AWS provider (you need to install the AWS vagrant plugin, and your own AWS credentials.
+
+* [Vagrant] - Manage local or remote virtual machines
+* [Virtualbox] - Open source virtual machine for many host operating systems
+* [AWSPlugin] - AWS Provider for Vagrant
+
+After installing the choosen tools you should start vagrant.  The first time it starts you will download the base 'box', so that might take a bit of time depending on your internet connection.
+
+```sh
+$ vagrant up
+$ vagrant ssh
+```
+At this point you are in the virtual machine.  You should then 'cd' to the /vagrant directory and from there you should be able to see your local checkout of the application:
+
+```sh
+$ cd /vagrant
+```
+The provisioning process will have setup a local::lib and a local installation of Perl 5.20.1 so you can just go ahead and start the server:
+```sh
+make server
+```
+Since we mapped port 5000 to the host, you can now open a web browser to http://localhost:5000/ and you should be able to see a running application.
+
+   [Vagrant]: <https://www.vagrantup.com>
+   [Virtualbox]: <https://www.virtualbox.org>
+   [AWSPlugin]: <https://github.com/mitchellh/vagrant-aws>

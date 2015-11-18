@@ -23,11 +23,14 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {
 
   sub new_game :POST Chained(root) PathPart('') FormModelTarget('Form::Game') Args(0) {
     my ($self, $c) = @_;
-    my $game = $c->model('Schema::Game')->new_result({});
-    my $form = $c->model('Form::Game', $game);
+    my $form = $c->model('Form::Game',
+      my $game = $c->model('Schema::Game')
+        ->new_result({}));
+
     if($form->is_valid) {
       my $game_url = $c->uri($self->show_board, [$game->id]);
-      $c->view->created(location => $game_url, {
+      $c->view->created(
+        location => $game_url, {
         game => $game,
         form => $form,
         new_game_url => $game_url,
