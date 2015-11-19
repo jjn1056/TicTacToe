@@ -11,7 +11,7 @@ PERLVERSION := 5.20.3
 PERLINSTALLTARGETDIR := $(LOCALDIR)perl-$(PERLVERSION)
 PERLBUILDURL := https://raw.githubusercontent.com/tokuhirom/Perl-Build/master/perl-build
 CPANMURL := http://cpanmin.us/
-LOCALPERL := $(PERLINSTALLTARGETDIR)/bin/perl
+LOCALPERL := $(PERLINSTALLTARGETDIR)/bin/perl$(PERLVERSION)
 LOCALEXEC := $(LOCALDIR)exec
 RUNTESTS := --notest 
 
@@ -32,6 +32,7 @@ help::
 buildperl::
 	@echo "Installing Perl"
 	curl $(PERLBUILDURL) | perl - --jobs 9 $(RUNTESTS) --noman $(PERLVERSION) $(PERLINSTALLTARGETDIR)
+	chmod 755 $(PERLINSTALLTARGETDIR)/bin/perl
 
 locallib::
 	@echo "Bootstrapping local::lib"

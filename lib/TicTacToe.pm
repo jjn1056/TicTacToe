@@ -37,7 +37,6 @@ __PACKAGE__->config(
     schema_class => 'TicTacToe::Schema',
   },
   'Model::Form' => {
-    #schema_model_name => 'Schema',
     #roles => ['HTML::Formhandler::Role::ToJSON'],
   },
   'View::JSON' => {
