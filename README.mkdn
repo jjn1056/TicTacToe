@@ -37,11 +37,10 @@ Since we mapped port 5000 to the host, you can now open a web browser to http://
 
 Complete as many of the following as you wish.
 
--- report page.  Give a high level overview of all the run game stats (X wins verus O wins, etc.)
--- Pages for all games list.  The all games list will get very long if there's a lot of games, create a paged interface
--- fixtures. generate a useful number of database fixures suitable for development and testing
--- game history.  Right now there is no way to review a game history (the state of the board at a particular move).
-    make it so that when a game is completed, you get a way to see the game board state at a given move
+* Report page.  Give a high level overview of all the run game stats (X wins verus O wins, etc.)
+* Pages for all games list.  The all games list will get very long if there's a lot of games, create a paged interface
+* Fixtures. generate a useful number of database fixures suitable for development and testing
+* Game history.  Make it so that when a game is completed, you get a way to see the game board state at a given move for that game.
 
    [Vagrant]: <https://www.vagrantup.com>
    [Virtualbox]: <https://www.virtualbox.org>
