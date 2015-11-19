@@ -14,7 +14,7 @@ sub root :Chained(../root) PathPart('') CaptureArgs(1) {
 }
 
   sub game :Chained('root') PathPart('') FormModelTarget('Form::Game') Args(0) {
-    my ($self, $c, $id) = @_;
+    my ($self, $c) = @_;
     my $form = $c->model('Form::Game',
       my $game = $c->model);
 
