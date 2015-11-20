@@ -10,6 +10,14 @@ sub new_game {
   return $self->create({});
 }
 
+sub map {
+  my ($self, $cb) = @_;
+  foreach my $result($self->all) {
+    local $_ = $result;
+    $cb->($self,$result);
+  }
+}
+
 1;
 
 =head1 TITLE
