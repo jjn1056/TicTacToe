@@ -3,8 +3,10 @@ Vagrant.configure(2) do |config|
 
   # Shared configuration
   config.vm.box = "ubuntu/trusty64"
-  config.vm.network "forwarded_port", guest: 5000, host:5000
+  config.vm.network "forwarded_port", guest:5000, host:5000
   config.ssh.forward_agent = true
+
+  #config.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=774','fmode=775']
 
   # Specific to the virtualbox provider
   config.vm.provider "virtualbox" do |vb|
