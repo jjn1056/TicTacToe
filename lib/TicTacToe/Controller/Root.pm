@@ -14,8 +14,8 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {
     'application/json' => sub { 'JSON' },
     'no_match' => sub {
       my ($req, %callbacks) = @_;
-      $c->view->template('406');
-      $c->view->detach_not_acceptable({allowed=>[keys %callbacks]});
+      $c->view('HTML')->template('406');
+      $c->view('HTML')->detach_not_acceptable({allowed=>[keys %callbacks]});
     },
   );
   $c->current_view($view);
