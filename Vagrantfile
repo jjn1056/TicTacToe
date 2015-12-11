@@ -14,10 +14,8 @@ Vagrant.configure(2) do |config|
 
   # Provisioning info
   config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
-    apt-get upgrade
     cd /vagrant
-    make installdevelop
+    sudo -E su vagrant -c 'make installdevelop'
   SHELL
 
 end
