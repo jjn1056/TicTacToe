@@ -2,11 +2,7 @@
 # makefile for common devops / automation tasks
 #
 
-#ifdef PERL_LOCAL_LIB_ROOT
-#  $(error You must disable your existing local::lib before bootstrapping.)
-#endif
-
-LOCALDIR := ./local/
+LOCALDIR := ~/local/
 PERLVERSION := 5.20.3
 PERLINSTALLTARGETDIR := $(LOCALDIR)perl-$(PERLVERSION)
 PERLBUILDURL := https://raw.githubusercontent.com/tokuhirom/Perl-Build/master/perl-build
@@ -32,7 +28,7 @@ help::
 buildperl::
 	@echo "Installing Perl"
 	curl $(PERLBUILDURL) | perl - --jobs 9 $(RUNTESTS) --noman $(PERLVERSION) $(PERLINSTALLTARGETDIR)
-	chmod 755 $(PERLINSTALLTARGETDIR)/bin/perl
+	#chmod 755 $(PERLINSTALLTARGETDIR)/bin/perl
 
 locallib::
 	@echo "Bootstrapping local::lib"
@@ -55,15 +51,14 @@ buildexec::
 
 installdeps::
 	@echo "Installing application dependencies"
-	local/exec cpanm -v $(RUNTESTS) --metacpan --installdeps .
+	$(LOCALEXEC) cpanm -v $(RUNTESTS) --metacpan --installdeps .
 
 installdevelop::
 	@echo "Installing application dependencies"
-	local/exec cpanm -v $(RUNTESTS) --metacpan --with-develop --installdeps .
+	$(LOCALEXEC) cpanm -v $(RUNTESTS) --metacpan --with-develop --installdeps .
 
 setup:: buildperl locallib buildexec installdevelop
 
 server::
-	local/exec perl -Ilib lib/TicTacToe/Server.pm
-
+	$(LOCALEXEC) perl -Ilib lib/TicTacToe/Server.pm
 
