@@ -12,7 +12,7 @@ The easiest way to run this application is from Vagrant, using Virtualbox, a fre
 * [Vagrant] - Manage local or remote virtual machines
 * [Virtualbox] - Open source virtual machine for many host operating systems
 
-After installing the choosen tools you should start vagrant.  The first time it starts you will download the base 'box', so that might take a bit of time depending on your internet connection.  Then during provisioning it will setup the TicTacToe application, which involves downloading and installing Perl as well as a number of dependencies.  Expect the download and setup process to take a bit of time.  Once the setup and provisioning is complete you should start vagrant and ssh into the server:
+After installing the choosen tools you should start vagrant.  The first time it starts you will download the base 'box', so that might take a bit of time depending on your internet connection.  Once the setup and provisioning is complete you should start vagrant and ssh into the server:
 
 ```sh
 $ vagrant up
@@ -34,13 +34,34 @@ CATALYST_DEBUG=1 DBIC_TRACE=1 make server
 Since we mapped port 5000 to the host, you can now open a web browser to http://localhost:5000/ and you should be able to see a running application.
 
 # Projects
-
 Complete as many of the following as you wish.
 
-* Report page.  Give a high level overview of all the run game stats (X wins verus O wins, etc.)
-* Pages for all games list.  The all games list will get very long if there's a lot of games, create a paged interface
-* Fixtures. generate a useful number of database fixures suitable for development and testing
-* Game history.  Make it so that when a game is completed, you get a way to see the game board state at a given move for that game.
+## Report Page
+We need a new endpoint that provides the following information
+* Total number of completed games
+* Total number of running games (games not yet in a complete state)
+* Total X wins
+* Total O wins
+* Total draws
+* Total number of moves in all games
+* Average number of moves in a game across all games
+
+Report page should contain a timestamp.  Testcase should be provided
+
+# Pagination for the list of all games
+Currently the root endpoint returns a full list of all running and completed games.  This list could get very long. Add pagination controls to the HTML and JSON for this.  For bonus points add sorting by status (X win, O win, Draw, In Progress).  For Double bonus points add a RSS or ATOM feed for the full games list.
+
+Document and test you new code.
+
+# Game History
+Right now you can only see the current or end state of a game board.  Change the system so that when a game is completed, you get a way to see the game board state at a given move for that game.  For example the game screen could have a list of all the boards (in move order) with links to display the state of that board for that move.
+
+# TicTacToe::Controller::Root, line 38
+Complete the noted TODO in the referenced line.  The issue here is that should the Form be invalid, there is no HTML template to report that issue.  Make this correct, with a test case to demonstrate.  Be sure you don't break the JSON view!
+
+# TicTacToe::Controller::Game, line 27
+Complete the noted TODO in the referenced line.  This is also a missing support for the HTML View (no template).  Create the template and give a use case.  Be sure you don't break the JSON view!
 
    [Vagrant]: <https://www.vagrantup.com>
    [Virtualbox]: <https://www.virtualbox.org>
+

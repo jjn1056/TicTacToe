@@ -16,7 +16,6 @@ __PACKAGE__->inject_components(
   'Model::Schema' => { from_component => 'Catalyst::Model::DBIC::Schema'},
   'View::JSON' => { from_component => 'Catalyst::View::JSON::PerRequest' },
   'View::HTML' => { from_component => 'Catalyst::View::Text::MicroTemplate::PerRequest'},
-  'Controller::Public' => { from_component => 'Catalyst::Controller::Public' });
 
 __PACKAGE__->request_class_traits([
   'ContentNegotiationHelpers',

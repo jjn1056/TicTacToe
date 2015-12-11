@@ -43,9 +43,6 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {
   sub view_games :GET Chained(root) PathPart('') Args(0) {
     my ($self, $c) = @_;
     my $form = $c->model("Form::Game");
-
-    ## TODO, needs paging for when lots of game
-    ## TODO, add count of total games
     my @links_to_games = map {
        $c->uri($self->show_board, [$_->id])
     } $c->model("Schema::Game")->all;
