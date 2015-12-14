@@ -4,6 +4,7 @@ use warnings;
 package TicTacToe::Schema::Result::Game;
 
 use base 'TicTacToe::Schema::Result';
+use TicTacToe::Schema::Result::Board;
 
 __PACKAGE__->table('game');
 __PACKAGE__->add_columns(
@@ -82,8 +83,12 @@ sub current_move {
 
 sub available_moves {
   my $self = shift;
-  return $self->current_move ?
-    $self->_current_board->available_moves : ();
+  if($self->in_storage) {
+    return $self->current_move ?
+      $self->_current_board->available_moves : ();
+  } else {
+    return @TicTacToe::Schema::Result::Board::locations;
+  }
 }
 
 sub TO_JSON {

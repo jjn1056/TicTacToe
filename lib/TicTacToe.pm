@@ -15,7 +15,7 @@ __PACKAGE__->inject_components(
   'Model::Form' => { from_component => 'Catalyst::Model::HTMLFormhandler' },
   'Model::Schema' => { from_component => 'Catalyst::Model::DBIC::Schema'},
   'View::JSON' => { from_component => 'Catalyst::View::JSON::PerRequest' },
-  'View::HTML' => { from_component => 'Catalyst::View::Text::MicroTemplate::PerRequest'},
+  'View::HTML' => { from_component => 'Catalyst::View::Text::MicroTemplate::PerRequest'});
 
 __PACKAGE__->request_class_traits([
   'ContentNegotiationHelpers',

@@ -13,7 +13,7 @@ has_field 'submit' => (type => 'Submit');
 
 sub options_move {
   my $self = shift;
-  my @available_moves = ($self->item && $self->item->in_storage) ?
+  my @available_moves = $self->item ?
     $self->item->available_moves :
       @TicTacToe::Schema::Result::Board::locations;
 
