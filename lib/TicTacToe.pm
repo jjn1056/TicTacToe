@@ -342,12 +342,15 @@ This class defines the following methods
 
 Current application version
 
-=head1 AUTHORS & COPYRIGHT
+=head1 AUTHOR
+  
+John Napiorkowski L<email:jjnapiork@cpan.org>
 
-John Napiorkowski, Copyright 2015
+=head1 COPYRIGHT & LICENSE
 
-=head1 LICENSE
-
-This software is owned by John Napiorkowski.  All Rights Reserved.
+Copyright 2016, John Napiorkowski L<email:jjnapiork@cpan.org>
+  
+This library is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
 
 =cut
