@@ -58,3 +58,41 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {
   }
 
 __PACKAGE__->meta->make_immutable;
+
+=head1 TITLE
+
+TicTacToe::Controller::Game - The Game controller
+
+=head1 DESCRIPTION
+
+View or change information about a game of TTT
+
+=head1 ACTIONS
+
+This class defines the following actions
+
+=head2 root
+
+root action, do content negotiation via L<Catalyst::TraitFor::Request::ContentNegotiationHelpers>.
+
+=head2 new_game
+
+Create a new game resource
+
+=head2 view_games
+
+View all existing games
+
+=head3 not_found
+
+Handle any not_found events
+
+=head1 AUTHORS & COPYRIGHT
+
+See L<JJNAPIORK::TicTacToe>.
+
+=head1 LICENSE
+
+See L<JJNAPIORK::TicTacToe>.
+
+=cut

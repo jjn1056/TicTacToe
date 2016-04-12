@@ -52,3 +52,42 @@ sub TO_JSON {
 }
 
 __PACKAGE__->meta->make_immutable;
+
+=head1 TITLE
+
+TicTacToe::Form::Game - Validation rules for the Game request
+
+=head1 DESCRIPTION
+
+Subclass of L<HTML::FormHandler>.
+
+=head1 METHODS
+
+This class contains the following methods.
+
+=head2 options_move
+
+Provides context correct available 'next move' options.
+
+=head2 update_model
+
+Custom update of the DBIC model, and also reload options
+since they've changed after choosing a move
+
+=head2 prepare_error_response
+
+Data structure of errors
+
+=head2 TO_JSON
+
+For the Catalyst JSON view.
+
+=head1 AUTHORS & COPYRIGHT
+
+See L<TicTacToe>.
+
+=head1 LICENSE
+
+See L<TicTacToe>.
+
+=cut

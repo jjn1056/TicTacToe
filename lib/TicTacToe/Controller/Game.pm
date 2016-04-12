@@ -13,10 +13,12 @@ sub root :Chained(../root) PathPart('') CaptureArgs(1) {
     $c->go('/not_found');
 }
 
-  sub game :Chained('root') PathPart('') FormModelTarget('Form::Game') Args(0) {
+  sub game :Chained('root') PathPart('') Args(0) {
     my ($self, $c) = @_;
     my $form = $c->model('Form::Game',
-      my $game = $c->model);
+      my $game = $c->model,
+        action_from => $self->action_for('game')
+    );
 
     $c->view->data->set(
       game => $game,
@@ -32,3 +34,33 @@ sub root :Chained(../root) PathPart('') CaptureArgs(1) {
   }
 
 __PACKAGE__->meta->make_immutable;
+
+=head1 TITLE
+
+TicTacToe::Controller::Game - The Game controller
+
+=head1 DESCRIPTION
+
+View or change information about a game of TTT
+
+=head1 ACTIONS
+
+This class defines the following actions
+
+=head2 root
+
+root action, find the game or return NotFound
+
+=head2 game
+
+Process GET or POST on a game resource
+
+=head1 AUTHORS & COPYRIGHT
+
+See L<JJNAPIORK::TicTacToe>.
+
+=head1 LICENSE
+
+See L<JJNAPIORK::TicTacToe>.
+
+=cut

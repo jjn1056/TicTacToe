@@ -10,7 +10,6 @@ sub last_in_game {
   $self->order_by({ -desc => 'move' })->first;
 }
 
-
 1;
 
 =head1 TITLE
@@ -19,15 +18,16 @@ TicTacToe::Schema::ResultSet::Board - resultset method for Board
 
 =head1 DESCRIPTION
 
-    TBD
+Methods on sets of boards
 
 =head1 METHODS
 
 This class defines the following methods
 
-=head2 TBD
+=head2 last_in_game
 
-    TBD
+Returns the row representing the last move made on the
+board.
 
 =head1 AUTHORS & COPYRIGHT
 

@@ -26,15 +26,19 @@ TicTacToe::Schema::ResultSet::Game - resultset method for Game
 
 =head1 DESCRIPTION
 
-    TBD
+Methods on sets of games
 
 =head1 METHODS
 
 This class defines the following methods
 
-=head2 TBD
+=head2 new_game
 
-    TBD
+Create a new game
+
+=head2 map
+
+Map a method over the current set.
 
 =head1 AUTHORS & COPYRIGHT
 
