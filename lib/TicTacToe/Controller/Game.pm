@@ -9,15 +9,16 @@ has 'games_index' => (is=>'ro', required=>1);
 
 sub root :Chained(../root) PathPart('') CaptureArgs(1) {
   my ($self, $c, $id) = @_;
-  return $c->model("Schema::Game::Result") ||
+  (my $model = $c->model("Schema::Game::Result")) ||
     $c->go('/not_found');
+  $c->stash(current_model_instance=>$model);
 }
 
   sub game :Chained('root') PathPart('') Args(0) {
     my ($self, $c) = @_;
     my $form = $c->model('Form::Game',
       my $game = $c->model,
-        action_from => $self->action_for('game')
+        action_from => [$self->action_for('game'), $c->req->captures]
     );
 
     $c->view->data->set(

@@ -9,6 +9,8 @@ has 'show_board' => (is=>'ro', required=>1);
 
 sub root :Chained(/) PathPart('') CaptureArgs(0) {
   my ($self, $c) = @_;
+  # See L<Catalyst::TraitFor::Request::ContentNegotiationHelpers> for documentation
+  # on method 'on_best_media_type'.
   my $view = $c->req->on_best_media_type(
     'text/html' => sub { 'HTML' },
     'application/json' => sub { 'JSON' },
@@ -18,13 +20,15 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {
       $c->view('HTML')->detach_not_acceptable({allowed=>[keys %callbacks]});
     },
   );
-  $c->current_view($view);
+  $c->stash(current_view=>$view);
 }
 
-  sub new_game :POST Chained(root) PathPart('') FormModelTarget('Form::Game') Args(0) {
+  sub new_game :POST Chained(root) PathPart('') Args(0) {
     my ($self, $c) = @_;
     my $form = $c->model('Form::Game',
-      my $game = $c->model('Schema::Game::Result'));
+      my $game = $c->model('Schema::Game::Result'),
+        action_from => $self->action_for('new_game')
+    );
 
     if($form->is_valid) {
       my $game_url = $c->uri($self->show_board, [$game->id]);

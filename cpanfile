@@ -35,6 +35,7 @@ on test => sub {
   requires 'HTTP::Request::Common', '6.11';
   requires 'Test::DBIx::Class', '0.44';
   requires 'Test::Most', '0.34';
+  requires 'Test::Class';
 };
 
 on develop => sub {

@@ -17,9 +17,7 @@ __PACKAGE__->inject_components(
   'View::JSON' => { from_component => 'Catalyst::View::JSON::PerRequest' },
   'View::HTML' => { from_component => 'Catalyst::View::Text::MicroTemplate::PerRequest'});
 
-__PACKAGE__->request_class_traits([
-  'ContentNegotiationHelpers',
-  'QueryFromJSONY']);
+__PACKAGE__->request_class_traits(['ContentNegotiationHelpers']);
 
 __PACKAGE__->config(
   'default_view' => 'HTML',
@@ -34,9 +32,6 @@ __PACKAGE__->config(
   'Model::Schema' => {
     traits => ['Result'],
     schema_class => 'TicTacToe::Schema',
-  },
-  'Model::Form' => {
-    #roles => ['HTML::Formhandler::Role::ToJSON'],
   },
   'View::JSON' => {
     handle_encode_error => \&Catalyst::View::JSON::PerRequest::HANDLE_ENCODE_ERROR,
@@ -78,6 +73,18 @@ it leads to you creating a sane API.  There is also a JSON version of the API
 (the test case json.t tests this version.)  There are also test cases for just
 the DBIC model, since I think its important to have test cases at a level below
 the HTTP interface.
+
+=head1 Plugins
+
+You should review the following plugins which are used by this application
+
+L<Catalyst::Plugin::ConfigLoader>,
+L<Catalyst::Plugin::ResponseFrom>,
+L<Catalyst::Plugin::RedirectTo>,
+L<Catalyst::Plugin::CurrentComponents>,
+L<Catalyst::Plugin::InjectionHelpers>,
+L<Catalyst::Plugin::MapComponentDependencies>,
+L<Catalyst::Plugin::URI>
 
 =head1 API Documention
 
